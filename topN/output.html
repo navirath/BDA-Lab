@@ -1,0 +1,201 @@
+<pre><font color="#26A269"><b>hadoop@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC</b></font>:<font color="#12488B"><b>~</b></font>$ hadoop fs -put ~/Desktop/sample1.txt /inputsort
+put: `/inputsort/sample1.txt&apos;: File exists
+<font color="#26A269"><b>hadoop@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC</b></font>:<font color="#12488B"><b>~</b></font>$ hadoop fs -ls /inputsort
+Found 1 items
+-rw-r--r--   1 hadoop supergroup        986 2026-04-27 16:02 /inputsort/sample1.txt
+<font color="#26A269"><b>hadoop@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC</b></font>:<font color="#12488B"><b>~</b></font>$ hadoop fs -rm -r /outputsort
+Deleted /outputsort
+<font color="#26A269"><b>hadoop@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC</b></font>:<font color="#12488B"><b>~</b></font>$ hadoop jar ~/Desktop/SortCount.jar SortDriver /inputsort /outputsort
+2026-04-27 16:15:45,653 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
+2026-04-27 16:15:45,689 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
+2026-04-27 16:15:45,689 INFO impl.MetricsSystemImpl: JobTracker metrics system started
+2026-04-27 16:15:45,740 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2026-04-27 16:15:45,789 INFO input.FileInputFormat: Total input files to process : 1
+2026-04-27 16:15:45,797 INFO mapreduce.JobSubmitter: number of splits:1
+2026-04-27 16:15:45,851 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_local645268855_0001
+2026-04-27 16:15:45,851 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-04-27 16:15:45,902 INFO mapreduce.Job: The url to track the job: http://localhost:8080/
+2026-04-27 16:15:45,902 INFO mapreduce.Job: Running job: job_local645268855_0001
+2026-04-27 16:15:45,903 INFO mapred.LocalJobRunner: OutputCommitter set in config null
+2026-04-27 16:15:45,906 INFO output.FileOutputCommitter: File Output Committer Algorithm version is 2
+2026-04-27 16:15:45,906 INFO output.FileOutputCommitter: FileOutputCommitter skip cleanup _temporary folders under output directory:false, ignore cleanup failures: false
+2026-04-27 16:15:45,906 INFO mapred.LocalJobRunner: OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2026-04-27 16:15:45,950 INFO mapred.LocalJobRunner: Waiting for map tasks
+2026-04-27 16:15:45,950 INFO mapred.LocalJobRunner: Starting task: attempt_local645268855_0001_m_000000_0
+2026-04-27 16:15:45,959 INFO output.FileOutputCommitter: File Output Committer Algorithm version is 2
+2026-04-27 16:15:45,959 INFO output.FileOutputCommitter: FileOutputCommitter skip cleanup _temporary folders under output directory:false, ignore cleanup failures: false
+2026-04-27 16:15:45,965 INFO mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2026-04-27 16:15:45,966 INFO mapred.MapTask: Processing split: hdfs://localhost:9000/inputsort/sample1.txt:0+986
+2026-04-27 16:15:45,996 INFO mapred.MapTask: (EQUATOR) 0 kvi 26214396(104857584)
+2026-04-27 16:15:45,996 INFO mapred.MapTask: mapreduce.task.io.sort.mb: 100
+2026-04-27 16:15:45,996 INFO mapred.MapTask: soft limit at 83886080
+2026-04-27 16:15:45,996 INFO mapred.MapTask: bufstart = 0; bufvoid = 104857600
+2026-04-27 16:15:45,996 INFO mapred.MapTask: kvstart = 26214396; length = 6553600
+2026-04-27 16:15:45,997 INFO mapred.MapTask: Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2026-04-27 16:15:46,032 INFO mapred.LocalJobRunner: 
+2026-04-27 16:15:46,033 INFO mapred.MapTask: Starting flush of map output
+2026-04-27 16:15:46,033 INFO mapred.MapTask: Spilling map output
+2026-04-27 16:15:46,033 INFO mapred.MapTask: bufstart = 0; bufend = 1582; bufvoid = 104857600
+2026-04-27 16:15:46,033 INFO mapred.MapTask: kvstart = 26214396(104857584); kvend = 26213804(104855216); length = 593/6553600
+2026-04-27 16:15:46,037 INFO mapred.MapTask: Finished spill 0
+2026-04-27 16:15:46,040 INFO mapred.Task: Task:attempt_local645268855_0001_m_000000_0 is done. And is in the process of committing
+2026-04-27 16:15:46,042 INFO mapred.LocalJobRunner: map
+2026-04-27 16:15:46,042 INFO mapred.Task: Task &apos;attempt_local645268855_0001_m_000000_0&apos; done.
+2026-04-27 16:15:46,045 INFO mapred.Task: Final Counters for attempt_local645268855_0001_m_000000_0: Counters: 23
+	File System Counters
+		FILE: Number of bytes read=4402
+		FILE: Number of bytes written=643794
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=986
+		HDFS: Number of bytes written=0
+		HDFS: Number of read operations=5
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=1
+		HDFS: Number of bytes read erasure-coded=0
+	Map-Reduce Framework
+		Map input records=2
+		Map output records=149
+		Map output bytes=1582
+		Map output materialized bytes=1886
+		Input split bytes=108
+		Combine input records=0
+		Spilled Records=149
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=0
+		Total committed heap usage (bytes)=526385152
+	File Input Format Counters 
+		Bytes Read=986
+2026-04-27 16:15:46,045 INFO mapred.LocalJobRunner: Finishing task: attempt_local645268855_0001_m_000000_0
+2026-04-27 16:15:46,045 INFO mapred.LocalJobRunner: map task executor complete.
+2026-04-27 16:15:46,046 INFO mapred.LocalJobRunner: Waiting for reduce tasks
+2026-04-27 16:15:46,046 INFO mapred.LocalJobRunner: Starting task: attempt_local645268855_0001_r_000000_0
+2026-04-27 16:15:46,049 INFO output.FileOutputCommitter: File Output Committer Algorithm version is 2
+2026-04-27 16:15:46,049 INFO output.FileOutputCommitter: FileOutputCommitter skip cleanup _temporary folders under output directory:false, ignore cleanup failures: false
+2026-04-27 16:15:46,050 INFO mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2026-04-27 16:15:46,051 INFO mapred.ReduceTask: Using ShuffleConsumerPlugin: org.apache.hadoop.mapreduce.task.reduce.Shuffle@3b0972f6
+2026-04-27 16:15:46,051 WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+2026-04-27 16:15:46,057 INFO reduce.MergeManagerImpl: MergerManager: memoryLimit=5830921216, maxSingleShuffleLimit=1457730304, mergeThreshold=3848408064, ioSortFactor=10, memToMemMergeOutputsThreshold=10
+2026-04-27 16:15:46,058 INFO reduce.EventFetcher: attempt_local645268855_0001_r_000000_0 Thread started: EventFetcher for fetching Map Completion Events
+2026-04-27 16:15:46,069 INFO reduce.LocalFetcher: localfetcher#1 about to shuffle output of map attempt_local645268855_0001_m_000000_0 decomp: 1882 len: 1886 to MEMORY
+2026-04-27 16:15:46,070 INFO reduce.InMemoryMapOutput: Read 1882 bytes from map-output for attempt_local645268855_0001_m_000000_0
+2026-04-27 16:15:46,071 INFO reduce.MergeManagerImpl: closeInMemoryFile -&gt; map-output of size: 1882, inMemoryMapOutputs.size() -&gt; 1, commitMemory -&gt; 0, usedMemory -&gt;1882
+2026-04-27 16:15:46,072 INFO reduce.EventFetcher: EventFetcher is interrupted.. Returning
+2026-04-27 16:15:46,072 INFO mapred.LocalJobRunner: 1 / 1 copied.
+2026-04-27 16:15:46,072 INFO reduce.MergeManagerImpl: finalMerge called with 1 in-memory map-outputs and 0 on-disk map-outputs
+2026-04-27 16:15:46,074 INFO mapred.Merger: Merging 1 sorted segments
+2026-04-27 16:15:46,074 INFO mapred.Merger: Down to the last merge-pass, with 1 segments left of total size: 1874 bytes
+2026-04-27 16:15:46,075 INFO reduce.MergeManagerImpl: Merged 1 segments, 1882 bytes to disk to satisfy reduce memory limit
+2026-04-27 16:15:46,075 INFO reduce.MergeManagerImpl: Merging 1 files, 1886 bytes from disk
+2026-04-27 16:15:46,075 INFO reduce.MergeManagerImpl: Merging 0 segments, 0 bytes from memory into reduce
+2026-04-27 16:15:46,075 INFO mapred.Merger: Merging 1 sorted segments
+2026-04-27 16:15:46,076 INFO mapred.Merger: Down to the last merge-pass, with 1 segments left of total size: 1874 bytes
+2026-04-27 16:15:46,076 INFO mapred.LocalJobRunner: 1 / 1 copied.
+2026-04-27 16:15:46,102 INFO Configuration.deprecation: mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+2026-04-27 16:15:46,147 INFO mapred.Task: Task:attempt_local645268855_0001_r_000000_0 is done. And is in the process of committing
+2026-04-27 16:15:46,149 INFO mapred.LocalJobRunner: 1 / 1 copied.
+2026-04-27 16:15:46,149 INFO mapred.Task: Task attempt_local645268855_0001_r_000000_0 is allowed to commit now
+2026-04-27 16:15:46,155 INFO output.FileOutputCommitter: Saved output of task &apos;attempt_local645268855_0001_r_000000_0&apos; to hdfs://localhost:9000/outputsort
+2026-04-27 16:15:46,156 INFO mapred.LocalJobRunner: reduce &gt; reduce
+2026-04-27 16:15:46,156 INFO mapred.Task: Task &apos;attempt_local645268855_0001_r_000000_0&apos; done.
+2026-04-27 16:15:46,156 INFO mapred.Task: Final Counters for attempt_local645268855_0001_r_000000_0: Counters: 30
+	File System Counters
+		FILE: Number of bytes read=8206
+		FILE: Number of bytes written=645680
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=986
+		HDFS: Number of bytes written=66
+		HDFS: Number of read operations=10
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=3
+		HDFS: Number of bytes read erasure-coded=0
+	Map-Reduce Framework
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=99
+		Reduce shuffle bytes=1886
+		Reduce input records=149
+		Reduce output records=10
+		Spilled Records=149
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=0
+		Total committed heap usage (bytes)=526385152
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Output Format Counters 
+		Bytes Written=66
+2026-04-27 16:15:46,156 INFO mapred.LocalJobRunner: Finishing task: attempt_local645268855_0001_r_000000_0
+2026-04-27 16:15:46,156 INFO mapred.LocalJobRunner: reduce task executor complete.
+2026-04-27 16:15:46,904 INFO mapreduce.Job: Job job_local645268855_0001 running in uber mode : false
+2026-04-27 16:15:46,905 INFO mapreduce.Job:  map 100% reduce 100%
+2026-04-27 16:15:46,905 INFO mapreduce.Job: Job job_local645268855_0001 completed successfully
+2026-04-27 16:15:46,909 INFO mapreduce.Job: Counters: 36
+	File System Counters
+		FILE: Number of bytes read=12608
+		FILE: Number of bytes written=1289474
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=1972
+		HDFS: Number of bytes written=66
+		HDFS: Number of read operations=15
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+		HDFS: Number of bytes read erasure-coded=0
+	Map-Reduce Framework
+		Map input records=2
+		Map output records=149
+		Map output bytes=1582
+		Map output materialized bytes=1886
+		Input split bytes=108
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=99
+		Reduce shuffle bytes=1886
+		Reduce input records=149
+		Reduce output records=10
+		Spilled Records=298
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=0
+		Total committed heap usage (bytes)=1052770304
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=986
+	File Output Format Counters 
+		Bytes Written=66
+<font color="#26A269"><b>hadoop@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC</b></font>:<font color="#12488B"><b>~</b></font>$ hadoop fs -ls /outputsort
+Found 2 items
+-rw-r--r--   1 hadoop supergroup          0 2026-04-27 16:15 /outputsort/_SUCCESS
+-rw-r--r--   1 hadoop supergroup         66 2026-04-27 16:15 /outputsort/part-r-00000
+<font color="#26A269"><b>hadoop@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC</b></font>:<font color="#12488B"><b>~</b></font>$ hadoop fs -cat /outputsort/part-r-00000
+data	13
+big	6
+to	6
+and	6
+of	4
+with	4
+the	3
+that	3
+in	2
+analysis	2
+<font color="#26A269"><b>hadoop@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC</b></font>:<font color="#12488B"><b>~</b></font>$ 
+</pre>
