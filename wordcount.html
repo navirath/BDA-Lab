@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hadoop WordCount Execution</title>
+<style>
+body{
+    font-family: monospace;
+    background:#1e1e1e;
+    color:#e6e6e6;
+    padding:20px;
+}
+.terminal{
+    background:#000;
+    padding:20px;
+    border-radius:8px;
+}
+.green{color:#26A269;}
+.blue{color:#12488B;}
+.red{color:#C01C28;}
+</style>
+</head>
+
+<body>
+
+<h2>Hadoop MapReduce WordCount Execution</h2>
+
+<div class="terminal">
+
+<p><span class="green">hadoop@bmscecse-HP-Elite-Tower</span>:
+<span class="blue">~/eclipse-workspace/WordCount/src</span>$ ls</p>
+
+<p>WCDriver.class &nbsp; WCMapper.class &nbsp; WCReducer.class</p>
+
+<p><span class="green">hadoop@bmscecse-HP-Elite-Tower</span>:
+<span class="blue">~/eclipse-workspace/WordCount/src</span>$ mv wordcount.jar ~/Desktop</p>
+
+<p><span class="green">hadoop@bmscecse-HP-Elite-Tower</span>:
+<span class="blue">~/Desktop</span>$ ls</p>
+
+<p>sample.txt &nbsp; WordCount2.jar &nbsp; avgtempp.jar &nbsp; <span class="red">wordcount.jar</span></p>
+
+<p><span class="green">hadoop@bmscecse-HP-Elite-Tower</span>:
+<span class="blue">~/WordCount/src</span>$ jps</p>
+
+<pre>
+DataNode
+NameNode
+SecondaryNameNode
+Jps
+</pre>
+
+<p><span class="green">hadoop@bmscecse-HP-Elite-Tower</span>:
+<span class="blue">~/WordCount/src</span>$ hadoop fs -ls /inputbda</p>
+
+<pre>
+Found 1 items
+-rw-r--r--   1 hadoop supergroup   89   /inputbda/sample.txt
+</pre>
+
+<p>Running the MapReduce Program:</p>
+
+<pre>
+hadoop jar ~/Desktop/wordcount.jar WCDriver /inputbda/sample.txt /outputbda
+</pre>
+
+<p>Job executed successfully.</p>
+
+<p>Displaying Output:</p>
+
+<pre>
+hadoop fs -cat /outputbda/part-00000
+
+are      1
+brother  1
+family   1
+hi       1
+how      5
+is       4
+job      1
+sister   1
+you      1
+your     4
+</pre>
+
+</div>
+
+</body>
+</html>

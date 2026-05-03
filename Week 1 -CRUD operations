@@ -1,0 +1,147 @@
+SQL
+CREATE DATABASE banking_finance;
+USE banking_finance;
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    age INT,
+    income DECIMAL(10,2),
+    account_type VARCHAR(20),
+    city VARCHAR(50)
+);
+
+CREATE TABLE transactions (
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    transaction_date DATE,
+    amount DECIMAL(10,2),
+    transaction_type VARCHAR(20),
+    status VARCHAR(20),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+CREATE TABLE credit_history (
+    credit_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    credit_score INT,
+    loan_amount DECIMAL(10,2),
+    emi_amount DECIMAL(10,2),
+    payment_status VARCHAR(20),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+INSERT INTO customers (name, age, income, account_type, city) VALUES
+('Amit Sharma', 35, 800000.00, 'Savings', 'Delhi'),
+('Riya Singh', 28, 550000.00, 'Current', 'Mumbai'),
+('Karan Kumar', 42, 1200000.00, 'Savings', 'Bengaluru'),
+('Sneha Gupta', 30, 750000.00, 'Savings', 'Chennai'),
+('Vikram Patel', 38, 900000.00, 'Current', 'Hyderabad');
+
+INSERT INTO transactions (customer_id, transaction_date, amount, transaction_type, status) VALUES
+(1, '2026-02-01', 12000.50, 'Debit', 'Success'),
+(2, '2026-01-20', 50000.00, 'Credit', 'Success'),
+(3, '2026-02-03', 15000.00, 'Debit', 'Failed'),
+(4, '2026-02-05', 250000.00, 'Debit', 'Success'),
+(5, '2026-01-10', 10000.00, 'Debit', 'Success');
+
+INSERT INTO credit_history (customer_id, credit_score, loan_amount, emi_amount, payment_status) VALUES
+(1, 720, 500000.00, 25000.00, 'Paid'),
+(2, 680, 300000.00, 20000.00, 'Paid'),
+(3, 550, 700000.00, 40000.00, 'Missed'),
+(4, 750, 1000000.00, 50000.00, 'Paid'),
+(5, 690, 400000.00, 22000.00, 'Paid');
+
+select * from customers
+select * from transactions
+select * from credit_history
+
+
+****CRUD operations****
+#Create
+INSERT INTO customers (name, age, income, account_type, city)
+VALUES ('Neha Verma', 27, 600000.00, 'Savings', 'Pune');
+
+INSERT INTO transactions (customer_id, transaction_date, amount, transaction_type, status)
+VALUES (6, '2026-02-06', 18000.00, 'Debit', 'Success');
+
+INSERT INTO credit_history (customer_id, credit_score, loan_amount, emi_amount, payment_status)
+VALUES (6, 710, 450000.00, 23000.00, 'Paid');
+
+#Retrive
+SELECT * FROM customers;
+
+SELECT c.name, t.transaction_date, t.amount, t.transaction_type, t.status
+FROM customers c
+JOIN transactions t ON c.customer_id = t.customer_id
+WHERE c.name = 'Amit Sharma';
+
+#Update
+UPDATE customers
+SET income = 850000.00
+WHERE customer_id = 1;
+select * from customers
+
+
+#Delete
+DELETE FROM transactions
+WHERE customer_id = 5;
+
+
+MongoDB
+use banking_finance
+
+***CRUD operations***
+
+#CREATE (Insert Data)
+db.customers.insertMany([
+  { _id: 1, name: "Amit Sharma", age: 35, income: 800000, account_type: "Savings", city: "Delhi" },
+  { _id: 2, name: "Riya Singh", age: 28, income: 550000, account_type: "Current", city: "Mumbai" },
+  { _id: 3, name: "Karan Kumar", age: 42, income: 1200000, account_type: "Savings", city: "Bengaluru" },
+  { _id: 4, name: "Sneha Gupta", age: 30, income: 750000, account_type: "Savings", city: "Chennai" },
+  { _id: 5, name: "Vikram Patel", age: 38, income: 900000, account_type: "Current", city: "Hyderabad" },
+  { _id: 6, name: "Neha Verma", age: 27, income: 600000, account_type: "Savings", city: "Pune" }
+])
+
+db.transactions.insertMany([
+  { customer_id: 1, transaction_date: new Date("2026-02-01"), amount: 12000.50, transaction_type: "Debit", status: "Success" },
+  { customer_id: 2, transaction_date: new Date("2026-01-20"), amount: 50000.00, transaction_type: "Credit", status: "Success" },
+  { customer_id: 3, transaction_date: new Date("2026-02-03"), amount: 15000.00, transaction_type: "Debit", status: "Failed" },
+  { customer_id: 4, transaction_date: new Date("2026-02-05"), amount: 250000.00, transaction_type: "Debit", status: "Success" },
+  { customer_id: 5, transaction_date: new Date("2026-01-10"), amount: 10000.00, transaction_type: "Debit", status: "Success" },
+  { customer_id: 6, transaction_date: new Date("2026-02-06"), amount: 18000.00, transaction_type: "Debit", status: "Success" }
+])
+
+db.credit_history.insertMany([
+  { customer_id: 1, credit_score: 720, loan_amount: 500000, emi_amount: 25000, payment_status: "Paid" },
+  { customer_id: 2, credit_score: 680, loan_amount: 300000, emi_amount: 20000, payment_status: "Paid" },
+  { customer_id: 3, credit_score: 550, loan_amount: 700000, emi_amount: 40000, payment_status: "Missed" },
+  { customer_id: 4, credit_score: 750, loan_amount: 1000000, emi_amount: 50000, payment_status: "Paid" },
+  { customer_id: 5, credit_score: 690, loan_amount: 400000, emi_amount: 22000, payment_status: "Paid" },
+  { customer_id: 6, credit_score: 710, loan_amount: 450000, emi_amount: 23000, payment_status: "Paid" }
+])
+
+#READ (Retrieve Data)
+db.customers.find()
+
+db.transactions.find({ customer_id: 1 })
+
+#UPDATE (Modify Data)
+db.customers.updateOne(
+  { _id: 1 },
+  { $set: { income: 850000 } }
+)
+
+#DELETE (Remove Data)
+
+db.customers.deleteOne({ _id: 5 })
+
+
+
+
+
+
+
+
+
+

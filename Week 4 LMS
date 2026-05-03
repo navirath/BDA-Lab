@@ -1,0 +1,92 @@
+ cqlsh                                                                                 bmscecse@bmscecse-HP-Elite-Tower-600-G9-Desktop-PC
+Connected to Test Cluster at 127.0.0.1:9042
+[cqlsh 6.1.0 | Cassandra 4.1.8 | CQL spec 3.4.6 | Native protocol v5]
+Use HELP for help.
+cqlsh> CREATE KEYSPACE library_management_1
+   ... WITH replication = {
+   ...    'class': 'SimpleStrategy',
+   ...    'replication_factor': 1
+   ... };
+
+cqlsh:library_management_1> USE library_management_1;
+cqlsh:library_management_1>
+cqlsh:library_management_1> CREATE TABLE Library_Info (
+                        ...     Stud_Id INT,
+                        ...     Book_Id TEXT,
+                        ...     Stud_Name TEXT,
+                        ...     Book_Name TEXT,
+                        ...     Date_of_issue DATE,
+                        ...     PRIMARY KEY (Stud_Id, Book_Id)
+                        ... );
+cqlsh:library_management_1> CREATE TABLE Library_Counter (
+                        ...     Stud_Id INT,
+                        ...     Book_Id TEXT,
+                        ...     Counter_value COUNTER,
+                        ...     PRIMARY KEY (Stud_Id, Book_Id)
+                        ... );
+cqlsh:library_management_1> BEGIN BATCH
+                        ... INSERT INTO Library_Info (Stud_Id, Stud_Name, Book_Name, Book_Id, Date_of_issue)
+                        ... VALUES (112, 'Rahul', 'BDA', 'B1', '2026-02-20');
+                        ...
+                        ... UPDATE Library_Counter
+                        ... SET Counter_value = Counter_value + 1
+                        ... WHERE Stud_Id = 112 AND Book_Id = 'B1';
+                        ... APPLY BATCH;
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Counter and non-counter mutations cannot exist in the same batch"
+cqlsh:library_management_1> BEGIN BATCH
+                        ... INSERT INTO Library_Info (Stud_Id, Book_Id, Stud_Name, Book_Name, Date_of_issue)
+                        ... VALUES (112, 'B1', 'Rahul', 'BDA', '2026-02-20');
+                        ...
+                        ... UPDATE Library_Counter
+                        ... SET Counter_value = Counter_value + 1
+                        ... WHERE Stud_Id = 112 AND Book_Id = 'B1';
+                        ... APPLY BATCH;
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Counter and non-counter mutations cannot exist in the same batch"
+cqlsh:library_management_1> INSERT INTO Library_Info (Stud_Id, Book_Id, Stud_Name, Book_Name, Date_of_issue)
+                        ... VALUES (112, 'B1', 'Rahul', 'BDA', '2026-02-20');
+cqlsh:library_management_1> UPDATE Library_Counter
+                        ... SET Counter_value = Counter_value + 1
+                        ... WHERE Stud_Id = 112 AND Book_Id = 'B1';
+cqlsh:library_management_1> UPDATE Library_Counter
+                        ... SET Counter_value = Counter_value + 1
+                        ... WHERE Stud_Id = 112 AND Book_Id = 'B1';
+cqlsh:library_management_1> SELECT * FROM Library_Info;
+
+ stud_id | book_id | book_name | date_of_issue | stud_name
+---------+---------+-----------+---------------+-----------
+     112 |      B1 |       BDA |    2026-02-20 |     Rahul
+
+(1 rows)
+cqlsh:library_management_1> SELECT * FROM Library_Counter;
+
+ stud_id | book_id | counter_value
+---------+---------+---------------
+     112 |      B1 |             2
+
+(1 rows)
+cqlsh:library_management_1> SELECT Counter_value
+                        ... FROM Library_Counter
+                        ... WHERE Stud_Id = 112 AND Book_Id = 'B1';
+
+ counter_value
+---------------
+             2
+
+(1 rows)
+cqlsh:library_management_1> COPY library_management_1.Library_Info
+                        ... TO 'library_info.csv'
+                        ... WITH HEADER = TRUE;
+Using 16 child processes
+
+Starting copy of library_management_1.library_info with columns [stud_id, book_id, book_name, date_of_issue, stud_name].
+Processed: 1 rows; Rate:      10 rows/s; Avg. rate:      10 rows/s
+1 rows exported to 1 files in 0.121 seconds.
+cqlsh:library_management_1> COPY library_management_1.Library_Info
+                        ... FROM 'library_info.csv'
+                        ... WITH HEADER = TRUE;
+Using 16 child processes
+
+Starting copy of library_management_1.library_info with columns [stud_id, book_id, book_name, date_of_issue, stud_name].
+Processed: 1 rows; Rate:       2 rows/s; Avg. rate:       2 rows/s
+1 rows imported from 1 files in 0.406 seconds (0 skipped).
+cqlsh:library_management_1>
